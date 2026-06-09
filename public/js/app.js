@@ -65,7 +65,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initTheme();
   initHeaderSearch();
   initNewsletter();
-  
+
   // Detect current page view
   const path = window.location.pathname;
   if (path === '/' || path === '/index.html') {
@@ -108,7 +108,7 @@ document.addEventListener('DOMContentLoaded', () => {
 function initTheme() {
   const themeToggle = document.getElementById('themeToggle');
   const storedTheme = localStorage.getItem('swarashtra_theme') || 'light';
-  
+
   // Set initial theme
   document.documentElement.setAttribute('data-theme', storedTheme);
   updateThemeIcon(storedTheme);
@@ -117,7 +117,7 @@ function initTheme() {
     themeToggle.addEventListener('click', () => {
       const currentTheme = document.documentElement.getAttribute('data-theme');
       const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-      
+
       document.documentElement.setAttribute('data-theme', newTheme);
       localStorage.setItem('swarashtra_theme', newTheme);
       updateThemeIcon(newTheme);
@@ -128,7 +128,7 @@ function initTheme() {
 function updateThemeIcon(theme) {
   const toggle = document.getElementById('themeToggle');
   if (!toggle) return;
-  
+
   if (theme === 'dark') {
     toggle.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-sun"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>`;
   } else {
@@ -159,7 +159,7 @@ function initNewsletter() {
     e.preventDefault();
     const emailInput = form.querySelector('.newsletter-input');
     const msgDiv = document.getElementById('newsletterMsg');
-    
+
     if (!emailInput || !emailInput.value) return;
 
     try {
@@ -168,7 +168,7 @@ function initNewsletter() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email: emailInput.value })
       });
-      
+
       const data = await res.json();
       if (data.success) {
         emailInput.value = '';
@@ -340,11 +340,8 @@ async function loadHomepage() {
               <div class="hero-meta">
                 <span class="badge badge-accent">${hero.category}</span>
                 <span class="badge badge-navy">${hero.state}</span>
-                ${hero.source_name ? `<span class="badge badge-navy">${hero.source_name}</span>` : ''}
                 <span>•</span>
                 <span>${formatCardDate(hero.published_at, lang)}</span>
-                <span>•</span>
-                <span>${readMins} ${readLabel}</span>
               </div>
               <h1 class="hero-title">${title}</h1>
               <p class="hero-summary">${summary}</p>
@@ -382,7 +379,7 @@ async function loadHomepage() {
   // 4. Fetch State Focus
   try {
     const states = ['Delhi NCR', 'Uttar Pradesh', 'Punjab', 'Haryana', 'Uttarakhand'];
-    
+
     // Fetch state focus sections independently to guarantee population if stories exist
     await Promise.all(states.map(async (st) => {
       try {
@@ -392,7 +389,7 @@ async function loadHomepage() {
           const res = await fetch(`/api/news/latest?state=${encodeURIComponent(st)}&limit=3`);
           const data = await res.json();
           const stateStories = data.articles || [];
-          
+
           let html = `<div class="state-col-name">${st}</div>`;
           if (stateStories.length === 0) {
             html += `<p style="font-size:0.85rem;color:var(--color-text-light);">No recent stories.</p>`;
@@ -556,7 +553,7 @@ async function loadArticlePage(articleId) {
       return;
     }
     const article = await res.json();
-    
+
     // 2. Increment view count
     fetch(`/api/news/${articleId}/view`, { method: 'POST' });
 
@@ -661,7 +658,7 @@ async function loadAuthorDetailInfo(authorName) {
     const res = await fetch('/api/authors');
     const authors = await res.json();
     const author = authors.find(a => a.name.toLowerCase() === authorName.toLowerCase());
-    
+
     if (author) {
       const box = document.getElementById('authorDetailBox');
       if (box) {
@@ -689,17 +686,17 @@ async function loadArticleComments(articleId) {
     const res = await fetch(`/api/articles/${articleId}/comments`);
     const comments = await res.json();
     const list = document.getElementById('commentsList');
-    
+
     if (list) {
       if (comments.length === 0) {
         list.innerHTML = `<p style="color:var(--color-text-muted); font-style:italic;">No comments yet. Be the first to share your thoughts!</p>`;
       } else {
         const parentComments = comments.filter(c => !c.parent_id);
-        
+
         list.innerHTML = parentComments.map(c => {
           const replies = comments.filter(r => r.parent_id === c.id);
           const formattedDate = new Date(c.created_at).toLocaleString();
-          
+
           let commentHtml = `
             <div class="comment-item" style="background:var(--color-bg-card); border: 1px solid var(--color-border); padding: 20px; border-radius: var(--border-radius-md); display: flex; flex-direction: column; gap: 8px;">
               <div style="display:flex; justify-content:space-between; align-items:center;">
@@ -741,16 +738,16 @@ async function loadArticleComments(articleId) {
 }
 
 // Global hooks to support nested reply triggers in DOM
-window.triggerReplyForm = function(parentId, authorName) {
+window.triggerReplyForm = function (parentId, authorName) {
   const container = document.getElementById(`replyForm-${parentId}`);
   if (!container) return;
-  
+
   if (container.style.display === 'block') {
     container.style.display = 'none';
     container.innerHTML = '';
     return;
   }
-  
+
   container.innerHTML = `
     <h5 style="margin: 0 0 10px 0; font-size:0.85rem; color:var(--color-text-muted);">Replying to ${authorName}</h5>
     <form onsubmit="event.preventDefault(); submitReplyComment(${parentId});">
@@ -765,10 +762,10 @@ window.triggerReplyForm = function(parentId, authorName) {
   container.style.display = 'block';
 };
 
-window.submitReplyComment = async function(parentId) {
+window.submitReplyComment = async function (parentId) {
   const path = window.location.pathname;
   const articleId = path.split('/').pop();
-  
+
   const name = document.getElementById(`replyName-${parentId}`).value.trim();
   const email = document.getElementById(`replyEmail-${parentId}`).value.trim();
   const content = document.getElementById(`replyContent-${parentId}`).value.trim();
@@ -848,7 +845,7 @@ async function loadStatePage(stateName) {
   try {
     const res = await fetch(`/api/news/latest?state=${encodeURIComponent(stateName)}&limit=15`);
     const data = await res.json();
-    
+
     if (grid) {
       if (data.articles.length === 0) {
         grid.innerHTML = `<p style="grid-column: span 3; text-align: center;">${getTranslation('no_results')}</p>`;
@@ -874,7 +871,7 @@ async function loadCategoryPage(categoryName) {
   try {
     const res = await fetch(`/api/news/latest?category=${encodeURIComponent(categoryName)}&limit=15`);
     const data = await res.json();
-    
+
     if (grid) {
       if (data.articles.length === 0) {
         grid.innerHTML = `<p style="grid-column: span 3; text-align: center;">${getTranslation('no_results')}</p>`;
@@ -898,7 +895,7 @@ async function loadSearchPage() {
   const triggerBtn = document.getElementById('searchTriggerBtn');
   const resultsGrid = document.getElementById('searchResultsGrid');
   const countLabel = document.getElementById('searchCountLabel');
-  
+
   if (!queryInput) return;
 
   // Populate source filter from API
@@ -910,7 +907,7 @@ async function loadSearchPage() {
         opt.textContent = src;
         sourceSelect.appendChild(opt);
       });
-    }).catch(() => {});
+    }).catch(() => { });
   }
 
   let searchOffset = 0;
@@ -958,7 +955,7 @@ async function loadSearchPage() {
     try {
       const res = await fetch(url);
       const data = await res.json();
-      
+
       if (!append) {
         resultsGrid.innerHTML = '';
       }
@@ -1058,7 +1055,7 @@ async function loadRelatedArticles(category, currentId) {
 // ==========================================
 function initArticleAnalytics(articleId, state) {
   const startTime = Date.now();
-  
+
   // Detect Device Type
   let device = 'Desktop';
   const width = window.innerWidth;
@@ -1068,7 +1065,7 @@ function initArticleAnalytics(articleId, state) {
   // Flush analytics log when visitor leaves the page
   window.addEventListener('beforeunload', () => {
     const duration = Math.round((Date.now() - startTime) / 1000);
-    
+
     // Check navigator.sendBeacon support for reliable logs on exit
     const payload = JSON.stringify({
       articleId,
@@ -1094,10 +1091,10 @@ function initArticleAnalytics(articleId, state) {
 // ==========================================
 // SHARE BUTTON ACTIONS
 // ==========================================
-window.shareArticle = function(platform) {
+window.shareArticle = function (platform) {
   const url = encodeURIComponent(window.location.href);
   const text = encodeURIComponent(document.title);
-  
+
   if (platform === 'twitter') {
     window.open(`https://twitter.com/intent/tweet?url=${url}&text=${text}`, '_blank');
   } else if (platform === 'facebook') {
@@ -1105,7 +1102,7 @@ window.shareArticle = function(platform) {
   }
 };
 
-window.copyUrl = function() {
+window.copyUrl = function () {
   navigator.clipboard.writeText(window.location.href);
   alert('Article link copied to clipboard!');
 };
