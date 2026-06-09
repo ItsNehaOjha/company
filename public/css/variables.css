@@ -1,0 +1,71 @@
+/* ==========================================================================
+   Swarashtra.in Design System Tokens
+   ========================================================================== */
+
+:root {
+  /* Fonts */
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-serif: 'Lora', Georgia, Cambria, "Times New Roman", Times, serif;
+
+  /* Theme Colors (Light Theme Defaults) */
+  --color-primary: #001F5B;        /* Deep Navy Blue */
+  --color-primary-light: #0A3C9B;
+  --color-primary-dark: #00133A;
+  --color-secondary: #FFFFFF;      /* White */
+  --color-accent: #E63946;         /* Breaking News Red */
+  --color-accent-hover: #C52233;
+  --color-bg: #F5F7FA;             /* Subtle Light Gray */
+  --color-bg-card: #FFFFFF;
+  --color-bg-inset: #EAEFF5;
+  --color-text: #111827;           /* Off-black / charcoal */
+  --color-text-muted: #4B5563;     /* Gray 600 */
+  --color-text-light: #9CA3AF;     /* Gray 400 */
+  --color-border: #E5E7EB;         /* Gray 200 */
+  --color-border-focus: #001F5B;
+  --color-success: #10B981;        /* Green 500 */
+  --color-warning: #F59E0B;        /* Amber 500 */
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.08), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -2px rgba(0, 0, 0, 0.03);
+  --shadow-premium: 0 20px 25px -5px rgba(0, 0, 0, 0.05), 0 10px 10px -5px rgba(0, 0, 0, 0.02);
+
+  /* Layout Spacing */
+  --container-width: 1200px;
+  --header-height: 70px;
+  --ticker-height: 40px;
+  --border-radius-sm: 4px;
+  --border-radius-md: 8px;
+  --border-radius-lg: 12px;
+  --border-radius-full: 9999px;
+
+  /* Transitions */
+  --transition-fast: 0.15s ease;
+  --transition-normal: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ==========================================================================
+   Dark Theme Token Overrides
+   ========================================================================== */
+[data-theme="dark"] {
+  --color-primary: #8AB4F8;        /* Light blue accents */
+  --color-primary-light: #AECBFA;
+  --color-primary-dark: #669DF6;
+  --color-secondary: #1E293B;      /* Dark slate card bg */
+  --color-accent: #FF6B6B;         /* Soft red */
+  --color-accent-hover: #FF8787;
+  --color-bg: #0F172A;             /* Very dark slate */
+  --color-bg-card: #1E293B;
+  --color-bg-inset: #111827;
+  --color-text: #F1F5F9;           /* Off-white */
+  --color-text-muted: #94A3B8;     /* Slate 400 */
+  --color-text-light: #64748B;     /* Slate 500 */
+  --color-border: #334155;         /* Slate 700 */
+  --color-border-focus: #8AB4F8;
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.4), 0 4px 6px -2px rgba(0, 0, 0, 0.3);
+  --shadow-premium: 0 20px 25px -5px rgba(0, 0, 0, 0.45), 0 10px 10px -5px rgba(0, 0, 0, 0.3);
+}

@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  swarashtra:
+    build: .
+    ports:
+      - "3000:3000"
+    env_file:
+      - .env
+    volumes:
+      - swarashtra_data:/app/db
+      - swarashtra_uploads:/app/public/uploads
+    restart: unless-stopped
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    restart: unless-stopped
+    profiles:
+      - cache
+
+volumes:
+  swarashtra_data:
+  swarashtra_uploads:

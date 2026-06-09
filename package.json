@@ -1,0 +1,33 @@
+{
+  "name": "swarashtra",
+  "version": "1.0.0",
+  "description": "Swarashtra.in — Premium digital news platform for North India",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js",
+    "aggregate": "node -e \"require('./services/aggregator').runFullAggregation().then(() => process.exit(0))\"",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "compression": "^1.8.1",
+    "connect-sqlite3": "^0.9.16",
+    "cors": "^2.8.6",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "express-rate-limit": "^8.5.2",
+    "express-session": "^1.19.0",
+    "helmet": "^8.2.0",
+    "multer": "^2.1.1",
+    "nodemailer": "^8.0.10",
+    "rss-parser": "^3.13.0",
+    "sharp": "^0.34.5",
+    "sqlite3": "^6.0.1",
+    "xmlbuilder": "^15.1.1"
+  }
+}

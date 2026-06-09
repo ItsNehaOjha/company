@@ -1,0 +1,47 @@
+/* ==========================================================================
+   Swarashtra.in Dark Theme Adjustments
+   ========================================================================== */
+
+[data-theme="dark"] .breaking-ticker {
+  background-color: #1e293b;
+}
+
+[data-theme="dark"] .news-card {
+  border: 1px solid #334155;
+}
+
+[data-theme="dark"] .list-card {
+  border-bottom-color: #334155;
+}
+
+[data-theme="dark"] .state-col {
+  border-top-color: #8AB4F8;
+  border-bottom: 1px solid #334155;
+}
+
+[data-theme="dark"] .state-col-name {
+  color: #8AB4F8;
+  border-bottom-color: #334155;
+}
+
+[data-theme="dark"] .trending-item {
+  border-bottom-color: #334155;
+}
+
+[data-theme="dark"] .comment-item {
+  background-color: #111827;
+}
+
+[data-theme="dark"] .search-filter-wrapper {
+  border: 1px solid #334155;
+}
+
+[data-theme="dark"] select.filter-select {
+  border-color: #334155;
+  background-color: #1e293b;
+}
+
+[data-theme="dark"] select.filter-select option {
+  background-color: #1e293b;
+  color: #f1f5f9;
+}

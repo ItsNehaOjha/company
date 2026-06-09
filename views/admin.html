@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Swarashtra.in | Admin CMS Dashboard</title>
+  
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="/css/admin.css">
+</head>
+<body class="admin-body">
+
+  <!-- ==========================================
+       LOGIN SECTION (Hidden after auth)
+       ========================================== -->
+  <div id="adminLoginPortal" class="login-container" style="display: none;">
+    <div class="login-card">
+      <div class="login-logo">
+        SWARASHTRA<span>.IN</span>
+      </div>
+      <h3 style="text-align: center; margin-bottom: 20px; color: #475569;">Admin CMS Access</h3>
+      
+      <div id="loginErrorMsg" style="color: #ef4444; background-color: #fee2e2; padding: 10px; border-radius: 6px; font-size: 0.85rem; margin-bottom: 15px; display: none; text-align: center;"></div>
+      
+      <form id="adminLoginForm">
+        <div class="form-group">
+          <label for="usernameInput">USERNAME</label>
+          <input type="text" id="usernameInput" class="form-control" placeholder="Enter username" required>
+        </div>
+        <div class="form-group">
+          <label for="passwordInput">PASSWORD</label>
+          <input type="password" id="passwordInput" class="form-control" placeholder="Enter password" required>
+        </div>
+        <button type="submit" class="form-control" style="background-color: #001F5B; color: #ffffff; font-weight: 700; border: none; cursor: pointer; margin-top: 10px; text-transform: uppercase;">Log In</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ==========================================
+       DASHBOARD SECTION (Visible after auth)
+       ========================================== -->
+  <div id="adminDashboardContainer" class="admin-layout" style="display: none;">
+    
+    <!-- Sidebar Navigation -->
+    <aside class="admin-sidebar">
+      <div class="sidebar-logo">
+        SWARASHTRA<span>.IN</span>
+      </div>
+      <div style="font-size: 0.8rem; text-transform: uppercase; color: #64748b; margin-bottom: 25px; padding-left: 15px;">
+        Signed in as: <strong id="welcomeUserLabel" style="color: #ffffff;">admin</strong>
+      </div>
+      <ul class="sidebar-menu">
+        <li><div class="sidebar-link active" data-tab="dashboard">Dashboard</div></li>
+        <li><div class="sidebar-link" data-tab="articles">Manage Articles</div></li>
+        <li><div class="sidebar-link" data-tab="authors">Authors CMS</div></li>
+        <li><div class="sidebar-link" data-tab="comments">Moderate Comments</div></li>
+        <li><div class="sidebar-link" data-tab="media">Media Library</div></li>
+        <li><div class="sidebar-link" data-tab="feeds">RSS Feeds</div></li>
+        <li><div class="sidebar-link" data-tab="subscribers">Newsletter Subs</div></li>
+        <li><div class="sidebar-link" data-tab="settings">CMS Settings</div></li>
+      </ul>
+      
+      <div style="margin-top: auto; padding: 15px 0 0 0; border-top: 1px solid rgba(255,255,255,0.1);">
+        <button id="logoutBtn" class="form-control" style="background-color: #E63946; color: #ffffff; border: none; cursor: pointer; font-weight: 700;">LOG OUT</button>
+        <a href="/" target="_blank" class="form-control" style="background-color: transparent; border: 1px solid rgba(255,255,255,0.3); color: #ffffff; text-align: center; display: block; margin-top: 10px; font-weight: 600; padding: 10px;">VIEW WEBSITE</a>
+      </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="admin-main">
+      
+      <!-- ====================================================
+           TAB: DASHBOARD
+           ==================================================== -->
+      <section id="section-dashboard" class="admin-section">
+        <h1 style="margin-bottom: 30px;">CMS Metrics Center</h1>
+        
+        <!-- Metrics Counts -->
+        <div class="metrics-grid">
+          <div class="metric-card">
+            <div class="metric-label">Total Articles</div>
+            <div class="metric-val" id="statArticlesCount">0</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-label">Reader Engagements</div>
+            <div class="metric-val" id="statViewsCount">0</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-label">Newsletter Subscriptions</div>
+            <div class="metric-val" id="statSubscribersCount">0</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-label">RSS Sources</div>
+            <div class="metric-val" id="statFeedsCount">0</div>
+          </div>
+        </div>
+
+        <!-- Charts Grid -->
+        <div class="chart-panels-grid">
+          
+          <!-- Geographical Reads -->
+          <div class="chart-card">
+            <h3 class="chart-title">Readership by State / Territory</h3>
+            <div id="dashboardStateGrid">
+              <!-- Load state read metrics -->
+            </div>
+          </div>
+
+          <!-- Device Reads -->
+          <div class="chart-card">
+            <h3 class="chart-title">Visits by Device Category</h3>
+            <div id="dashboardDeviceGrid">
+              <!-- Load device metrics -->
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Top Articles -->
+        <div class="chart-card" style="margin-bottom: 40px;">
+          <h3 class="chart-title">Top 5 Read Articles</h3>
+          <div id="dashboardTopArticles">
+            <!-- Hydrated by JS -->
+          </div>
+        </div>
+
+      </section>
+
+      <!-- ====================================================
+           TAB: ARTICLES CMS
+           ==================================================== -->
+      <section id="section-articles" class="admin-section" style="display: none;">
+        <h1 style="margin-bottom: 30px;">Manage Swarashtra Articles</h1>
+        
+        <!-- Write/Edit Article Card -->
+        <div class="chart-card" id="articleFormCard" style="margin-bottom: 40px;">
+          <h3 class="chart-title" id="articleFormTitle">Write New Article</h3>
+          <form id="articleForm">
+            <!-- Row 1: English Title -->
+            <div class="form-group">
+              <label for="artTitleEn">ARTICLE TITLE (ENGLISH)</label>
+              <input type="text" id="artTitleEn" class="form-control" placeholder="Enter headline in English" required>
+            </div>
+            <!-- Row 2: Hindi Title -->
+            <div class="form-group">
+              <label for="artTitleHi">ARTICLE TITLE (HINDI)</label>
+              <input type="text" id="artTitleHi" class="form-control" placeholder="हिंदी में शीर्षक दर्ज करें (वैकल्पिक)">
+            </div>
+
+            <!-- Row 3: English and Hindi Summaries -->
+            <div class="form-row">
+              <div class="form-group">
+                <label for="artSummaryEn">SUMMARY / DECK (ENGLISH)</label>
+                <textarea id="artSummaryEn" class="form-control" style="height: 80px; resize: vertical;" placeholder="Brief summary for indexing..."></textarea>
+              </div>
+              <div class="form-group">
+                <label for="artSummaryHi">SUMMARY / DECK (HINDI)</label>
+                <textarea id="artSummaryHi" class="form-control" style="height: 80px; resize: vertical;" placeholder="संक्षेप हिंदी में..."></textarea>
+              </div>
+            </div>
+
+            <!-- Row 4: English and Hindi Full Contents -->
+            <div class="form-row">
+              <div class="form-group">
+                <label for="artContentEn">FULL CONTENT (ENGLISH)</label>
+                <textarea id="artContentEn" class="form-control" style="height: 180px; resize: vertical;" placeholder="Write news story details in English..."></textarea>
+              </div>
+              <div class="form-group">
+                <label for="artContentHi">FULL CONTENT (HINDI)</label>
+                <textarea id="artContentHi" class="form-control" style="height: 180px; resize: vertical;" placeholder="समाचार कहानी का विवरण हिंदी में लिखें..."></textarea>
+              </div>
+            </div>
+
+            <!-- Row 5: Metadata Fields -->
+            <div class="form-row">
+              <div class="form-group">
+                <label for="artImageUrl">LEAD IMAGE URL</label>
+                <input type="url" id="artImageUrl" class="form-control" placeholder="https://source-publication.com/image.jpg">
+              </div>
+              <div class="form-group">
+                <label for="artAuthor">AUTHOR / BYLINE</label>
+                <input type="text" id="artAuthor" class="form-control" placeholder="Author name (optional)">
+              </div>
+            </div>
+
+            <!-- Row 6: Dropdowns & Flag Toggles -->
+            <div class="form-row">
+              <div class="form-group">
+                <label for="artCategory">CATEGORY</label>
+                <select id="artCategory" class="form-control">
+                  <option value="National">National</option>
+                  <option value="Business">Business</option>
+                  <option value="Technology">Technology</option>
+                  <option value="Sports">Sports</option>
+                  <option value="World">World Affairs</option>
+                  <option value="Opinion">Opinion</option>
+                  <option value="Videos">Videos</option>
+                  <option value="Education">Education</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="artState">STATE / REGION FOCUS</label>
+                <select id="artState" class="form-control">
+                  <option value="National">National Coverage</option>
+                  <option value="Delhi NCR">Delhi NCR</option>
+                  <option value="Uttar Pradesh">Uttar Pradesh</option>
+                  <option value="Punjab">Punjab</option>
+                  <option value="Haryana">Haryana</option>
+                  <option value="Uttarakhand">Uttarakhand</option>
+                  <option value="Himachal Pradesh">Himachal Pradesh</option>
+                  <option value="Jammu & Kashmir">Jammu & Kashmir</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Row 7: Video settings and features -->
+            <div class="form-row">
+              <div class="form-group" style="display: flex; gap: 20px; align-items: center; height: 100%;">
+                <label style="display:flex; align-items:center; gap:8px; margin-top:20px; cursor:pointer;">
+                  <input type="checkbox" id="artIsHero"> Hero Story
+                </label>
+                <label style="display:flex; align-items:center; gap:8px; margin-top:20px; cursor:pointer;">
+                  <input type="checkbox" id="artIsBreaking"> Breaking
+                </label>
+                <label style="display:flex; align-items:center; gap:8px; margin-top:20px; cursor:pointer;">
+                  <input type="checkbox" id="artIsVideo"> Video Report
+                </label>
+              </div>
+              <div class="form-group">
+                <label for="artVideoUrl">EMBED VIDEO URL (YouTube Embed Link)</label>
+                <input type="url" id="artVideoUrl" class="form-control" placeholder="https://www.youtube.com/embed/...">
+              </div>
+            </div>
+
+            <!-- Form buttons -->
+            <div style="margin-top: 20px; display:flex; gap:10px;">
+              <button type="submit" class="btn-action btn-edit" id="artFormSubmitBtn" style="padding: 12px 24px; font-weight: 700; font-size: 0.9rem; text-transform: uppercase;">Publish Article</button>
+              <button type="button" class="btn-action btn-delete" style="padding: 12px 24px; font-weight: 700; font-size: 0.9rem; text-transform: uppercase;" onclick="this.form.reset(); editingArticleId=null; document.getElementById('articleFormTitle').textContent='Write New Article'; document.getElementById('artFormSubmitBtn').textContent='Publish Article';">Reset Fields</button>
+            </div>
+          </form>
+        </div>
+
+        <!-- Articles CRUD Table -->
+        <div class="chart-card">
+          <h3 class="chart-title">Articles Archive</h3>
+          <div class="data-table-wrapper">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Title (EN)</th>
+                  <th>Category</th>
+                  <th>State</th>
+                  <th>Author</th>
+                  <th>Published</th>
+                  <th>Views</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="articlesTableBody">
+                <!-- Hydrated by JS -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- ====================================================
+           TAB: RSS FEEDS CONFIGURATION
+           ==================================================== -->
+      <section id="section-feeds" class="admin-section" style="display: none;">
+        <h1 style="margin-bottom: 30px;">Manage RSS Ingestion Feeds</h1>
+        
+        <!-- Feed action sync strip -->
+        <div style="background-color: #e2e8f0; padding: 15px 25px; border-radius: 8px; margin-bottom: 30px; display: flex; justify-content: space-between; align-items: center;">
+          <span style="font-weight: 600; font-size: 0.95rem;">Sync active RSS pipelines to fetch recent regional and national news headlines:</span>
+          <button class="btn-action btn-edit" id="syncTriggerBtn" style="padding: 10px 20px; font-weight: 700; text-transform: uppercase;">Trigger Live RSS Sync</button>
+        </div>
+
+        <!-- Add/Edit Feed Card -->
+        <div class="chart-card" id="feedFormCard" style="margin-bottom: 40px;">
+          <h3 class="chart-title" id="feedFormTitle">Register New RSS Feed Source</h3>
+          <form id="feedForm">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="feedName">FEED SOURCE NAME</label>
+                <input type="text" id="feedName" class="form-control" placeholder="e.g. PIB Delhi National" required>
+              </div>
+              <div class="form-group">
+                <label for="feedUrl">RSS FEED URL</label>
+                <input type="url" id="feedUrl" class="form-control" placeholder="https://example.com/rss" required>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="feedCategory">DEFAULT CATEGORY ASSIGNMENT</label>
+                <select id="feedCategory" class="form-control">
+                  <option value="National">National</option>
+                  <option value="Business">Business</option>
+                  <option value="Technology">Technology</option>
+                  <option value="Sports">Sports</option>
+                  <option value="World">World Affairs</option>
+                  <option value="Opinion">Opinion</option>
+                  <option value="Videos">Videos</option>
+                  <option value="Education">Education</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="feedState">DEFAULT STATE FOCUS</label>
+                <select id="feedState" class="form-control">
+                  <option value="National">National Coverage</option>
+                  <option value="Delhi NCR">Delhi NCR</option>
+                  <option value="Uttar Pradesh">Uttar Pradesh</option>
+                  <option value="Punjab">Punjab</option>
+                  <option value="Haryana">Haryana</option>
+                  <option value="Uttarakhand">Uttarakhand</option>
+                  <option value="Himachal Pradesh">Himachal Pradesh</option>
+                  <option value="Jammu & Kashmir">Jammu & Kashmir</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group" style="max-width: 200px;">
+              <label for="feedActive">FEED INGESTION STATE</label>
+              <select id="feedActive" class="form-control">
+                <option value="1">Active Ingestion</option>
+                <option value="0">Paused Ingestion</option>
+              </select>
+            </div>
+            <div style="margin-top: 20px;">
+              <button type="submit" class="btn-action btn-edit" id="feedFormSubmitBtn" style="padding: 10px 20px; font-weight: 700; text-transform: uppercase;">Add RSS Source</button>
+            </div>
+          </form>
+        </div>
+
+        <!-- Feeds Table -->
+        <div class="chart-card">
+          <h3 class="chart-title">Ingested RSS Sources</h3>
+          <div class="data-table-wrapper">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Source Name</th>
+                  <th>RSS Target URI</th>
+                  <th>Default Category</th>
+                  <th>Default State</th>
+                  <th>Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="feedsTableBody">
+                <!-- Hydrated by JS -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- ====================================================
+           TAB: SUBSCRIBERS
+           ==================================================== -->
+      <section id="section-subscribers" class="admin-section" style="display: none;">
+        <h1 style="margin-bottom: 30px;">Newsletter Subscriptions</h1>
+
+        <!-- Newsletter Campaign Dispatcher Card -->
+        <div class="chart-card" style="margin-bottom: 40px;">
+          <h3 class="chart-title">Compose & Send Newsletter Campaign</h3>
+          <form id="newsletterCampaignForm">
+            <div class="form-group">
+              <label for="campaignSubject">EMAIL SUBJECT / HEADER</label>
+              <input type="text" id="campaignSubject" class="form-control" placeholder="e.g. Swarashtra Weekly Digest - Connectivity & Tech" required>
+            </div>
+            
+            <div class="form-group">
+              <label>SELECT RECENT ARTICLES TO EMBED (Multiple selects permitted)</label>
+              <div id="campaignArticlesSelector" style="max-height: 180px; overflow-y: scroll; border: 1px solid var(--color-border); border-radius: 6px; padding: 15px; display: flex; flex-direction: column; gap: 10px;">
+                <!-- Dynamically loaded articles list -->
+                <span>Loading recent article titles...</span>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="campaignCustomHtml">CUSTOM TEXT / ANNOUNCEMENT (Optional)</label>
+              <textarea id="campaignCustomHtml" class="form-control" style="height: 100px; resize: vertical;" placeholder="Custom introductory note or links..."></textarea>
+            </div>
+
+            <button type="submit" class="btn-action btn-edit" id="campaignSubmitBtn" style="padding: 12px 24px; font-weight: 700; text-transform: uppercase;">Dispatch Campaign Email</button>
+          </form>
+          <div id="campaignStatusMsg" style="margin-top: 15px; font-weight: 600; display: none;"></div>
+        </div>
+
+        <div class="chart-card">
+          <h3 class="chart-title">Subscribed Reader Inboxes</h3>
+          <div class="data-table-wrapper">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Subscriber Email Address</th>
+                  <th>Subscribed At</th>
+                </tr>
+              </thead>
+              <tbody id="subscribersTableBody">
+                <!-- Hydrated by JS -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ====================================================
+           TAB: AUTHORS CMS
+           ==================================================== -->
+      <section id="section-authors" class="admin-section" style="display: none;">
+        <h1 style="margin-bottom: 30px;">Manage Swarashtra Authors</h1>
+        
+        <!-- Add/Edit Author Card -->
+        <div class="chart-card" id="authorFormCard" style="margin-bottom: 40px;">
+          <h3 class="chart-title" id="authorFormTitle">Register New Author</h3>
+          <form id="authorForm">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="authName">AUTHOR FULL NAME</label>
+                <input type="text" id="authName" class="form-control" placeholder="e.g. Preeti Rawat" required>
+              </div>
+              <div class="form-group">
+                <label for="authDesignation">DESIGNATION / TITLE</label>
+                <input type="text" id="authDesignation" class="form-control" placeholder="e.g. Ground Reporter" required>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="authBio">SHORT BIOGRAPHY</label>
+              <textarea id="authBio" class="form-control" style="height: 80px; resize: vertical;" placeholder="Author bio and achievements..."></textarea>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="authPhotoUrl">AVATAR PHOTO URL</label>
+                <input type="url" id="authPhotoUrl" class="form-control" placeholder="https://example.com/author-photo.jpg">
+              </div>
+              <div class="form-group">
+                <label for="authTwitter">TWITTER PROFILE LINK</label>
+                <input type="url" id="authTwitter" class="form-control" placeholder="https://twitter.com/...">
+              </div>
+            </div>
+            <div style="margin-top: 20px;">
+              <button type="submit" class="btn-action btn-edit" id="authFormSubmitBtn" style="padding: 10px 20px; font-weight: 700; text-transform: uppercase;">Register Author</button>
+            </div>
+          </form>
+        </div>
+
+        <!-- Authors Grid/List Table -->
+        <div class="chart-card">
+          <h3 class="chart-title">Authors Directory</h3>
+          <div class="data-table-wrapper">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Photo</th>
+                  <th>Name</th>
+                  <th>Designation</th>
+                  <th>Bio Summary</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="authorsTableBody">
+                <!-- Hydrated by JS -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ====================================================
+           TAB: COMMENTS MODERATION
+           ==================================================== -->
+      <section id="section-comments" class="admin-section" style="display: none;">
+        <h1 style="margin-bottom: 30px;">Comments Inboxes Moderation</h1>
+        
+        <div class="chart-card">
+          <h3 class="chart-title">Pending & Logged Reader Comments</h3>
+          <div class="data-table-wrapper">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Article</th>
+                  <th>Reader</th>
+                  <th>Content</th>
+                  <th>Status</th>
+                  <th>Created At</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="commentsTableBody">
+                <!-- Hydrated by JS -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ====================================================
+           TAB: MEDIA LIBRARY
+           ==================================================== -->
+      <section id="section-media" class="admin-section" style="display: none;">
+        <h1 style="margin-bottom: 30px;">Processed Media Catalog</h1>
+        
+        <!-- Media Uploader Card -->
+        <div class="chart-card" style="margin-bottom: 40px;">
+          <h3 class="chart-title">Upload & Compress Image (Auto WebP Conversion)</h3>
+          <form id="mediaUploadForm" enctype="multipart/form-data">
+            <div class="form-row" style="align-items: center;">
+              <div class="form-group">
+                <input type="file" id="mediaFileInput" accept="image/*" class="form-control" style="padding: 10px;" required>
+              </div>
+              <div class="form-group" style="max-width: 150px;">
+                <button type="submit" class="btn-action btn-edit" style="width: 100%; padding: 12px; font-weight: 700; text-transform: uppercase;">Upload Image</button>
+              </div>
+            </div>
+            <div id="mediaUploadMessage" style="margin-top: 15px; font-weight: 600; font-size: 0.9rem; display: none;"></div>
+          </form>
+        </div>
+
+        <!-- Media Gallery Catalog -->
+        <div class="chart-card">
+          <h3 class="chart-title">Media Library Grid</h3>
+          <div class="media-library-grid" id="mediaLibraryGrid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px;">
+            <!-- Loaded dynamically -->
+          </div>
+        </div>
+      </section>
+
+      <!-- ====================================================
+           TAB: CMS SETTINGS
+           ==================================================== -->
+      <section id="section-settings" class="admin-section" style="display: none;">
+        <h1 style="margin-bottom: 30px;">CMS Global Settings</h1>
+        
+        <div class="chart-card">
+          <h3 class="chart-title">Breaking News & Ticker Control</h3>
+          <form id="settingsForm" onsubmit="event.preventDefault(); saveSettings();">
+            <div class="form-group">
+              <label for="settingTickerText">BREAKING NEWS CUSTOM MSG (displayed in ticker)</label>
+              <input type="text" id="settingTickerText" class="form-control" value="🔴 LIVE: Swarashtra.in - Premium News Platform for North India Launched.">
+            </div>
+            
+            <div class="form-row">
+              <div class="form-group">
+                <label for="settingNewsKey">NEWSAPI.ORG API KEY (for advanced crawling)</label>
+                <input type="password" id="settingNewsKey" class="form-control" placeholder="Enter NewsAPI secret key">
+              </div>
+              <div class="form-group">
+                <label for="settingGNewsKey">GNEWS.IO API KEY</label>
+                <input type="password" id="settingGNewsKey" class="form-control" placeholder="Enter GNews secret key">
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="settingGeminiKey">GOOGLE GEMINI API KEY (for translation & summarization)</label>
+                <input type="password" id="settingGeminiKey" class="form-control" placeholder="Enter Google Gemini API key">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label style="display:flex; align-items:center; gap:8px; cursor:pointer;">
+                <input type="checkbox" id="settingAiSummarization" checked> Enable AI-powered News summarization pipeline
+              </label>
+            </div>
+
+            <button type="submit" class="btn-action btn-edit" style="padding: 10px 20px; font-weight: 700; text-transform: uppercase;">Save Settings</button>
+          </form>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- Load scripts -->
+  <script src="/js/admin.js"></script>
+  <script>
+    // Handle Save CMS Settings
+    // Helper to read cookie
+    function localGetCsrfToken() {
+      const name = 'csrfToken=';
+      const decodedCookie = decodeURIComponent(document.cookie);
+      const ca = decodedCookie.split(';');
+      for (let i = 0; i < ca.length; i++) {
+        let c = ca[i].trim();
+        if (c.indexOf(name) === 0) {
+          return c.substring(name.length, c.length);
+        }
+      }
+      return '';
+    }
+
+    // Handle Save CMS Settings
+    async function saveSettings() {
+      const tickerText = document.getElementById('settingTickerText').value;
+      const newsKey = document.getElementById('settingNewsKey').value;
+      const gnewsKey = document.getElementById('settingGNewsKey').value;
+      const geminiKey = document.getElementById('settingGeminiKey').value;
+      const aiEnabled = document.getElementById('settingAiSummarization').checked ? 1 : 0;
+
+      try {
+        const res = await fetch('/api/admin/settings', {
+          method: 'POST',
+          headers: { 
+            'Content-Type': 'application/json',
+            'x-csrf-token': localGetCsrfToken()
+          },
+          body: JSON.stringify({
+            ticker_custom_message: tickerText,
+            news_api_key: newsKey,
+            gnews_api_key: gnewsKey,
+            gemini_api_key: geminiKey,
+            ai_summarization_enabled: aiEnabled
+          })
+        });
+
+        const data = await res.json();
+        if (res.ok && data.success) {
+          alert('Settings saved successfully!');
+        } else {
+          alert(data.error || 'Failed to save settings.');
+        }
+      } catch (err) {
+        console.error('Settings error:', err);
+      }
+    }
+    
+    // Fetch settings on settings tab load
+    document.querySelector('[data-tab="settings"]').addEventListener('click', async () => {
+      try {
+        const res = await fetch('/api/admin/settings');
+        const data = await res.json();
+        
+        document.getElementById('settingTickerText').value = data.ticker_custom_message || '';
+        document.getElementById('settingNewsKey').value = data.news_api_key || '';
+        document.getElementById('settingGNewsKey').value = data.gnews_api_key || '';
+        document.getElementById('settingGeminiKey').value = data.gemini_api_key || '';
+        
+        if (data.ai_summarization_enabled !== undefined) {
+          document.getElementById('settingAiSummarization').checked = data.ai_summarization_enabled === '1';
+        }
+      } catch (err) {
+        console.error('Settings load error:', err);
+      }
+    });
+  </script>
+</body>
+</html>
