@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- INCLUDE HEAD -->
+
+  <style>
+    .policy-hero {
+      background: linear-gradient(135deg, #001f5b 0%, #0a3c9b 100%);
+      color: #ffffff;
+      padding: 50px 0;
+      text-align: center;
+      margin-bottom: 40px;
+    }
+    .policy-hero h1 {
+      font-size: 2.2rem;
+      margin-bottom: 10px;
+      font-weight: 800;
+    }
+    .policy-hero p {
+      font-size: 1rem;
+      max-width: 600px;
+      margin: 0 auto;
+      opacity: 0.9;
+    }
+    .policy-grid {
+      display: grid;
+      grid-template-columns: 2.5fr 1fr;
+      gap: 40px;
+      margin-bottom: 60px;
+    }
+    @media (max-width: 992px) {
+      .policy-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    .policy-card {
+      background-color: var(--color-bg-card);
+      border: 1px solid var(--color-border);
+      border-radius: var(--border-radius-lg);
+      padding: 40px;
+      box-shadow: var(--shadow-sm);
+      transition: background-color var(--transition-normal), border-color var(--transition-normal);
+    }
+    .policy-card h2 {
+      font-size: 1.35rem;
+      color: var(--color-primary);
+      margin-top: 35px;
+      margin-bottom: 15px;
+      border-bottom: 1px solid var(--color-border);
+      padding-bottom: 8px;
+    }
+    .policy-card h2:first-of-type {
+      margin-top: 0;
+    }
+    [data-theme="dark"] .policy-card h2 {
+      color: #ffffff;
+    }
+    .policy-card p {
+      color: var(--color-text-muted);
+      line-height: 1.7;
+      margin-bottom: 20px;
+      font-size: 0.98rem;
+    }
+    .policy-card ul, .policy-card ol {
+      margin-left: 20px;
+      margin-bottom: 20px;
+      color: var(--color-text-muted);
+      font-size: 0.98rem;
+      line-height: 1.7;
+    }
+    .policy-card li {
+      margin-bottom: 8px;
+    }
+    .sidebar-nav {
+      background-color: var(--color-bg-card);
+      border: 1px solid var(--color-border);
+      border-radius: var(--border-radius-lg);
+      padding: 25px;
+      position: sticky;
+      top: 90px;
+      box-shadow: var(--shadow-sm);
+    }
+    .sidebar-nav h3 {
+      font-size: 1.1rem;
+      margin-bottom: 15px;
+      color: var(--color-text);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .nav-links-list {
+      list-style: none;
+      padding: 0;
+    }
+    .nav-links-list li {
+      margin-bottom: 12px;
+    }
+    .nav-links-list a {
+      color: var(--color-text-muted);
+      font-size: 0.9rem;
+      display: block;
+      transition: color var(--transition-fast);
+    }
+    .nav-links-list a:hover {
+      color: var(--color-accent);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- INCLUDE HEADER -->
+  <!-- INCLUDE NAVBAR -->
+
+  <!-- Hero Section -->
+  <section class="policy-hero">
+    <div class="container">
+      <h1 data-i18n="terms_conditions">Terms & Conditions</h1>
+      <p>Terms of service governing your access and usage of Swarashtra.in news website.</p>
+    </div>
+  </section>
+
+  <!-- Main Body Content -->
+  <main class="container">
+    <div class="policy-grid">
+      
+      <!-- Left Column: Terms Guidelines -->
+      <div>
+        <div class="policy-card">
+          <h2 id="acceptance">1. Acceptance of Terms</h2>
+          <p>By accessing and reading Swarashtra.in (referred to as the "Website"), you acknowledge that you have read, understood, and agreed to be bound by these Terms and Conditions, our Privacy Policy, and our Editorial Policy. If you do not agree to these terms, please discontinue use of this Website immediately.</p>
+          <p>We reserves the right to modify or replace these terms at any time. Changes take effect immediately upon posting. Your continued use of the Website following modifications constitutes acceptance of the revised terms.</p>
+
+          <h2 id="usage">2. Content Usage & Restrictions</h2>
+          <p>All materials published on Swarashtra, including news reports, photographs, videos, opinions, charts, logos, and graphics, are meant for your personal, non-commercial use only. You agree not to:</p>
+          <ul>
+            <li><strong>No Automated Scraping:</strong> Use any automated systems (scrapers, crawlers, robots) to extract content or data from this website for database replication or AI model training without explicit written permission from Swarashtra.</li>
+            <li><strong>No Commercial Redistribution:</strong> Republish, translate, lease, sell, or distribute our reports on third-party commercial platforms.</li>
+            <li><strong>Frame Restriction:</strong> Frame or mirror any portion of the Website inside other web interfaces without our consent.</li>
+          </ul>
+
+          <h2 id="intellectual-property">3. Intellectual Property Rights</h2>
+          <p>The Website, along with its original content, features, databases, software configurations, layout, stylesheets, and custom aggregation pipelines, are the exclusive property of Swarashtra News and are protected by Indian and international copyright, trademark, and intellectual property laws.</p>
+          <p>If you quote our reports, proper hyperlink attribution to the original article on Swarashtra.in is mandatory.</p>
+
+          <h2 id="disclaimer">4. Disclaimers & Limitation of Liability</h2>
+          <p>Swarashtra.in gathers news from field reports, press agencies, and RSS pipelines. While we strive to maintain complete accuracy, the Website is provided on an "as-is" and "as-available" basis without warranties of any kind.</p>
+          <p>We do not guarantee that the server will be uninterrupted, secure, or free of bugs or viruses. Swarashtra, its directors, editors, or reporters shall not be held liable for any direct, indirect, incidental, or consequential damages resulting from your use or inability to use the Website.</p>
+
+          <h2 id="external-links">5. Links to External Sites</h2>
+          <p>Our articles may contain links to external sites that are not operated by us. We do not inspect or endorse the safety, accuracy, or products of these third-party platforms. Your interactions with external links are at your own discretion and risk.</p>
+
+          <h2 id="termination">6. Termination of Access</h2>
+          <p>We reserves the right, without notice and at our sole discretion, to terminate or restrict your access to the Website, comment sections, or newsletter subscriptions for conduct that we believe violates these Terms and Conditions or is harmful to other readers or our editorial team.</p>
+
+          <h2 id="governing-law">7. Governing Law & Jurisdiction</h2>
+          <p>These Terms & Conditions are governed by and construed in accordance with the laws of India. Any legal actions or disputes arising out of these terms shall be subject to the exclusive jurisdiction of the competent courts of Noida/Gautam Buddha Nagar, Uttar Pradesh, India.</p>
+
+          <h2 id="contact">8. Legal Contact</h2>
+          <p>If you have any questions or legal inquiries regarding these Terms & Conditions, please contact our legal desk:</p>
+          <p>
+            <strong>Email:</strong> <a href="mailto:info@swarashtra.in">info@swarashtra.in</a>
+          </p>
+        </div>
+      </div>
+
+      <!-- Right Column: Document Outline Navigation -->
+      <aside>
+        <div class="sidebar-nav">
+          <h3>On This Page</h3>
+          <ul class="nav-links-list">
+            <li><a href="#acceptance">1. Acceptance</a></li>
+            <li><a href="#usage">2. Content Usage</a></li>
+            <li><a href="#intellectual-property">3. Intellectual Property</a></li>
+            <li><a href="#disclaimer">4. Disclaimers</a></li>
+            <li><a href="#external-links">5. External Links</a></li>
+            <li><a href="#termination">6. Termination</a></li>
+            <li><a href="#governing-law">7. Governing Law</a></li>
+            <li><a href="#contact">8. Legal Contact</a></li>
+          </ul>
+        </div>
+      </aside>
+
+    </div>
+  </main>
+
+  <!-- INCLUDE FOOTER -->
+
+  <!-- INCLUDE MOBILE_NAV -->
+
+  <!-- INCLUDE SCRIPTS -->
+</body>
+</html>

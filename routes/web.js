@@ -7,6 +7,34 @@ const { dbAll, dbGet } = require('../db/database');
 
 const viewsDir = path.join(__dirname, '..', 'views');
 
+function loadTemplate(viewName) {
+  const filePath = path.join(viewsDir, `${viewName}.html`);
+  if (!fs.existsSync(filePath)) {
+    throw new Error(`View file not found: ${filePath}`);
+  }
+  let html = fs.readFileSync(filePath, 'utf8');
+
+  // Resolve server-side includes/partials
+  const partialsDir = path.join(viewsDir, 'partials');
+  
+  const getPartial = (name) => {
+    const pPath = path.join(partialsDir, `${name}.html`);
+    if (!fs.existsSync(pPath)) {
+      throw new Error(`Required partial layout "${name}" was not found at ${pPath}`);
+    }
+    return fs.readFileSync(pPath, 'utf8');
+  };
+
+  html = html.replace(/<!--\s*INCLUDE\s*HEAD\s*-->/gi, () => getPartial('head'));
+  html = html.replace(/<!--\s*INCLUDE\s*HEADER\s*-->/gi, () => getPartial('header'));
+  html = html.replace(/<!--\s*INCLUDE\s*NAVBAR\s*-->/gi, () => getPartial('navbar'));
+  html = html.replace(/<!--\s*INCLUDE\s*FOOTER\s*-->/gi, () => getPartial('footer'));
+  html = html.replace(/<!--\s*INCLUDE\s*SCRIPTS\s*-->/gi, () => getPartial('scripts'));
+  html = html.replace(/<!--\s*INCLUDE\s*MOBILE_NAV\s*-->/gi, () => getPartial('mobile-nav'));
+
+  return html;
+}
+
 // Helper to inject SEO metadata, OpenGraph, Twitter Cards, hreflang, canonicals and schema.org markup
 function injectSEO(html, options = {}) {
   const {
@@ -78,8 +106,7 @@ const orgSchema = {
 // Route: Homepage
 router.get('/', async (req, res) => {
   try {
-    const filePath = path.join(viewsDir, 'index.html');
-    let html = fs.readFileSync(filePath, 'utf8');
+    let html = loadTemplate('index');
 
     const homepageSchema = {
       "@context": "https://schema.org",
@@ -115,8 +142,7 @@ router.get('/', async (req, res) => {
 router.get('/article/:id', async (req, res) => {
   try {
     const article = await dbGet('SELECT * FROM articles WHERE id = ?', [req.params.id]);
-    const filePath = path.join(viewsDir, 'article.html');
-    let html = fs.readFileSync(filePath, 'utf8');
+    let html = loadTemplate('article');
 
     if (!article) {
       return res.status(404).send('Article not found');
@@ -211,8 +237,7 @@ function resolveStateName(param) {
 }
 
 function renderStatePage(stateName, res) {
-  const filePath = path.join(viewsDir, 'state.html');
-  let html = fs.readFileSync(filePath, 'utf8');
+  let html = loadTemplate('state');
   const canonicalSlug = Object.entries(STATE_SLUG_MAP).find(([, v]) => v === stateName)?.[0] || encodeURIComponent(stateName);
   const canonicalUrl = `https://swarashtra.in/${canonicalSlug}`;
 
@@ -258,8 +283,7 @@ const CATEGORY_SLUG_MAP = {
 };
 
 function renderCategoryPage(categoryName, res) {
-  const filePath = path.join(viewsDir, 'state.html');
-  let html = fs.readFileSync(filePath, 'utf8');
+  let html = loadTemplate('state');
   const canonicalUrl = `https://swarashtra.in/${categoryName.toLowerCase()}`;
 
   const breadcrumbSchema = {
@@ -306,8 +330,7 @@ router.get('/state/:state', async (req, res) => {
 // Route: Search Archive Page
 router.get('/search', async (req, res) => {
   try {
-    const filePath = path.join(viewsDir, 'search.html');
-    let html = fs.readFileSync(filePath, 'utf8');
+    let html = loadTemplate('search');
 
     const seoHtml = injectSEO(html, {
       title: 'Search Digital Archives | Swarashtra.in',
@@ -324,9 +347,129 @@ router.get('/search', async (req, res) => {
   }
 });
 
+// Route: About Us Page
+router.get('/about-us', (req, res) => {
+  try {
+    let html = loadTemplate('about');
+
+    const seoHtml = injectSEO(html, {
+      title: 'About Swarashtra | Voice of North India',
+      description: 'Swarashtra is a premium independent digital media newsroom for North India. Learn about our mission, vision, core values, editorial standards, and technology.',
+      imageUrl: 'https://swarashtra.in/logo.png',
+      canonicalUrl: 'https://swarashtra.in/about-us',
+      hreflangs: [
+        { lang: 'en', url: 'https://swarashtra.in/about-us' }
+      ]
+    });
+
+    res.send(seoHtml);
+  } catch (err) {
+    res.status(500).send('Error rendering page');
+  }
+});
+
+// Alias: /about redirects to /about-us
+router.get('/about', (req, res) => {
+  res.redirect(301, '/about-us');
+});
+
+// Route: Contact Us Page
+router.get('/contact-us', (req, res) => {
+  try {
+    let html = loadTemplate('contact');
+
+    const seoHtml = injectSEO(html, {
+      title: 'Contact Swarashtra News | Noida Headquarters & Support',
+      description: 'Contact Swarashtra News. Get in touch with our digital news and media organization in Noida. Find phone, email, business hours, and office directions.',
+      imageUrl: 'https://swarashtra.in/logo.png',
+      canonicalUrl: 'https://swarashtra.in/contact-us',
+      hreflangs: [
+        { lang: 'en', url: 'https://swarashtra.in/contact-us' }
+      ]
+    });
+
+    res.send(seoHtml);
+  } catch (err) {
+    res.status(500).send('Error rendering page');
+  }
+});
+
+// Alias: /contact redirects to /contact-us
+router.get('/contact', (req, res) => {
+  res.redirect(301, '/contact-us');
+});
+
+// Route: Privacy Policy Page
+router.get('/privacy-policy', (req, res) => {
+  try {
+    let html = loadTemplate('privacy');
+
+    const seoHtml = injectSEO(html, {
+      title: 'Privacy Policy | Swarashtra.in',
+      description: 'Privacy Policy for Swarashtra News Portal. Read about how we collect, protect, and use user information, analytics data, and cookies.',
+      imageUrl: 'https://swarashtra.in/logo.png',
+      canonicalUrl: 'https://swarashtra.in/privacy-policy',
+      hreflangs: [
+        { lang: 'en', url: 'https://swarashtra.in/privacy-policy' }
+      ]
+    });
+
+    res.send(seoHtml);
+  } catch (err) {
+    res.status(500).send('Error rendering page');
+  }
+});
+
+// Route: Editorial Policy Page
+router.get('/editorial-policy', (req, res) => {
+  try {
+    let html = loadTemplate('editorial');
+
+    const seoHtml = injectSEO(html, {
+      title: 'Editorial Policy & Code of Ethics | Swarashtra.in',
+      description: 'Editorial Policy of Swarashtra News. Read our guidelines on fact-checking, sources, corrections, ethics, sponsored content, and reader feedback.',
+      imageUrl: 'https://swarashtra.in/logo.png',
+      canonicalUrl: 'https://swarashtra.in/editorial-policy',
+      hreflangs: [
+        { lang: 'en', url: 'https://swarashtra.in/editorial-policy' }
+      ]
+    });
+
+    res.send(seoHtml);
+  } catch (err) {
+    res.status(500).send('Error rendering page');
+  }
+});
+
+// Route: Terms & Conditions Page
+router.get('/terms-conditions', (req, res) => {
+  try {
+    let html = loadTemplate('terms');
+
+    const seoHtml = injectSEO(html, {
+      title: 'Terms & Conditions | Swarashtra.in',
+      description: 'Terms and Conditions for using Swarashtra.in news website. Learn about our content usage policy, intellectual property rights, and user responsibilities.',
+      imageUrl: 'https://swarashtra.in/logo.png',
+      canonicalUrl: 'https://swarashtra.in/terms-conditions',
+      hreflangs: [
+        { lang: 'en', url: 'https://swarashtra.in/terms-conditions' }
+      ]
+    });
+
+    res.send(seoHtml);
+  } catch (err) {
+    res.status(500).send('Error rendering page');
+  }
+});
+
 // Route: Admin Page (no SEO needed)
 router.get('/admin', (req, res) => {
-  res.sendFile(path.join(viewsDir, 'admin.html'));
+  try {
+    const html = loadTemplate('admin');
+    res.send(html);
+  } catch (err) {
+    res.status(500).send('Error rendering page');
+  }
 });
 
 // robots.txt Route

@@ -57,14 +57,18 @@ const i18nDictionary = {
     comment_submit: 'Post Comment',
     next_story: 'Next Story Suggestions',
     
-    about_us: 'About Swarashtra',
+    about_us: 'About Us',
     about_desc: 'Swarashtra.in is an independent, digital-first news platform committed to trustworthy journalism. We cover politics, governance, and community developments across North India with clarity and depth.',
     contact: 'Contact Us',
     editorial_policy: 'Editorial Policy',
     privacy_policy: 'Privacy Policy',
-    terms_conditions: 'Terms of Service',
+    terms_conditions: 'Terms & Conditions',
     advertise: 'Advertise with Us',
     careers: 'Careers',
+    quick_links: 'Quick Links',
+    company_info: 'Company Info',
+    hq: 'Headquarters',
+    admin_login: 'Admin Login',
     copyright: '© 2026 Swarashtra.in. All rights reserved.'
   },
   hi: {
@@ -121,14 +125,18 @@ const i18nDictionary = {
     comment_submit: 'टिप्पणी पोस्ट करें',
     next_story: 'अगली कहानी के सुझाव',
     
-    about_us: 'स्वराष्ट्र के बारे में',
+    about_us: 'हमारे बारे में',
     about_desc: 'स्वराष्ट्र.इन एक स्वतंत्र, डिजिटल-फर्स्ट न्यूज़ प्लेटफ़ॉर्म है जो विश्वसनीय पत्रकारिता के लिए प्रतिबद्ध है। हम स्पष्टता और गहराई के साथ उत्तर भारत में राजनीति, शासन और सामुदायिक विकास को कवर करते हैं।',
     contact: 'संपर्क करें',
     editorial_policy: 'संपादकीय नीति',
     privacy_policy: 'गोपनीयता नीति',
-    terms_conditions: 'सेवा की शर्तें',
+    terms_conditions: 'नियम और शर्तें',
     advertise: 'हमारे साथ विज्ञापन करें',
     careers: 'करियर',
+    quick_links: 'त्वरित लिंक्स',
+    company_info: 'कंपनी की जानकारी',
+    hq: 'मुख्यालय',
+    admin_login: 'एडमिन लॉगिन',
     copyright: '© 2026 स्वराष्ट्र.इन। सर्वाधिकार सुरक्षित।'
   }
 };

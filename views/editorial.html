@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- INCLUDE HEAD -->
+
+  <style>
+    .policy-hero {
+      background: linear-gradient(135deg, #001f5b 0%, #0a3c9b 100%);
+      color: #ffffff;
+      padding: 50px 0;
+      text-align: center;
+      margin-bottom: 40px;
+    }
+    .policy-hero h1 {
+      font-size: 2.2rem;
+      margin-bottom: 10px;
+      font-weight: 800;
+    }
+    .policy-hero p {
+      font-size: 1rem;
+      max-width: 600px;
+      margin: 0 auto;
+      opacity: 0.9;
+    }
+    .policy-grid {
+      display: grid;
+      grid-template-columns: 2.5fr 1fr;
+      gap: 40px;
+      margin-bottom: 60px;
+    }
+    @media (max-width: 992px) {
+      .policy-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    .policy-card {
+      background-color: var(--color-bg-card);
+      border: 1px solid var(--color-border);
+      border-radius: var(--border-radius-lg);
+      padding: 40px;
+      box-shadow: var(--shadow-sm);
+      transition: background-color var(--transition-normal), border-color var(--transition-normal);
+    }
+    .policy-card h2 {
+      font-size: 1.35rem;
+      color: var(--color-primary);
+      margin-top: 35px;
+      margin-bottom: 15px;
+      border-bottom: 1px solid var(--color-border);
+      padding-bottom: 8px;
+    }
+    .policy-card h2:first-of-type {
+      margin-top: 0;
+    }
+    [data-theme="dark"] .policy-card h2 {
+      color: #ffffff;
+    }
+    .policy-card p {
+      color: var(--color-text-muted);
+      line-height: 1.7;
+      margin-bottom: 20px;
+      font-size: 0.98rem;
+    }
+    .policy-card ul, .policy-card ol {
+      margin-left: 20px;
+      margin-bottom: 20px;
+      color: var(--color-text-muted);
+      font-size: 0.98rem;
+      line-height: 1.7;
+    }
+    .policy-card li {
+      margin-bottom: 8px;
+    }
+    .sidebar-nav {
+      background-color: var(--color-bg-card);
+      border: 1px solid var(--color-border);
+      border-radius: var(--border-radius-lg);
+      padding: 25px;
+      position: sticky;
+      top: 90px;
+      box-shadow: var(--shadow-sm);
+    }
+    .sidebar-nav h3 {
+      font-size: 1.1rem;
+      margin-bottom: 15px;
+      color: var(--color-text);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .nav-links-list {
+      list-style: none;
+      padding: 0;
+    }
+    .nav-links-list li {
+      margin-bottom: 12px;
+    }
+    .nav-links-list a {
+      color: var(--color-text-muted);
+      font-size: 0.9rem;
+      display: block;
+      transition: color var(--transition-fast);
+    }
+    .nav-links-list a:hover {
+      color: var(--color-accent);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- INCLUDE HEADER -->
+  <!-- INCLUDE NAVBAR -->
+
+  <!-- Hero Section -->
+  <section class="policy-hero">
+    <div class="container">
+      <h1 data-i18n="editorial_policy">Editorial Policy</h1>
+      <p>Swarashtra.in maintains the highest standards of journalistic integrity, accuracy, and independent coverage.</p>
+    </div>
+  </section>
+
+  <!-- Main Body Content -->
+  <main class="container">
+    <div class="policy-grid">
+      
+      <!-- Left Column: Editorial Guidelines -->
+      <div>
+        <div class="policy-card">
+          <h2 id="fact-checking">1. Fact-Checking Standards</h2>
+          <p>Accuracy is the core pillar of Swarashtra. We verify all stories, claims, and ground reports extensively before publishing. Our fact-checking standards require:</p>
+          <ul>
+            <li><strong>Primary Source Verification:</strong> Confirming details with eyewitnesses, direct participants, court filings, government press releases, or official transcripts.</li>
+            <li><strong>Double-Source Policy:</strong> Validating controversial or sensitive political claims with at least two independent, reliable sources.</li>
+            <li><strong>Expert Consultations:</strong> Engaging domain experts (lawyers, economic analysts, environmentalists, agricultural scientists) to verify technical or legislative data.</li>
+          </ul>
+
+          <h2 id="sources">2. Sourcing & Attribution</h2>
+          <p>We believe in transparency. All articles must clearly state where information was gathered. Anonymous sources are used only when a source's life, safety, or career is at risk, and the information they provide is crucial to public interest. In such cases, the credibility of the source is vetted by the Editor-in-Chief before publication.</p>
+
+          <h2 id="corrections">3. Corrections Policy</h2>
+          <p>Despite rigorous edit cycles, errors can happen. When a mistake occurs, we correct it promptly and transparently:</p>
+          <ul>
+            <li><strong>Correction Notices:</strong> If a major factual change is made, a note is appended to the bottom of the article detailing the date of correction and what was corrected.</li>
+            <li><strong>Typographical Edits:</strong> Minor typo corrections that do not alter the facts of the story are updated without a formal notice.</li>
+            <li><strong>Retractions:</strong> If a story is found to be fundamentally incorrect, it will be retracted with a full explanation to our readers.</li>
+          </ul>
+
+          <h2 id="neutrality">4. Neutral Journalism & Fairness</h2>
+          <p>Swarashtra is non-partisan. We do not support any political party or ideology. We ensure that different perspectives of a debate are presented fairly. Our reporting is distinct from opinion pieces, which are clearly marked as "Opinion" or "Editorial" to prevent reader confusion.</p>
+
+          <h2 id="ethics">5. Code of Ethics</h2>
+          <p>Our editorial team follows strict ethical guidelines:</p>
+          <ul>
+            <li><strong>Conflict of Interest:</strong> Journalists must not report on organizations or topics where they have a financial or personal stake.</li>
+            <li><strong>Ethical Gathering:</strong> We gather news through open, lawful, and honest methods. Surreptitious recording is prohibited unless vital for public interest investigations.</li>
+            <li><strong>Respect for Privacy:</strong> We respect individual privacy, particularly regarding minors or victims of violence, in line with legal frameworks.</li>
+          </ul>
+
+          <h2 id="sponsored">6. Sponsored Content Policy</h2>
+          <p>To preserve trust, we draw a clear line between independent journalism and commercial partnerships:</p>
+          <ul>
+            <li><strong>Clear Demarcation:</strong> Any article funded by an advertiser, sponsor, or corporate partner is explicitly labeled as "Sponsored Content", "Paid Promotion", or "Advertisement".</li>
+            <li><strong>Editorial Independence:</strong> Advertisers have no say in the reporting, editing, or selection of our independent, non-sponsored stories.</li>
+          </ul>
+
+          <h2 id="feedback">7. Reader Feedback & Grievances</h2>
+          <p>We welcome reader feedback, critiques, and complaints. If you believe a story is inaccurate or violates journalistic ethics, you can write to our grievance desk. We review all submissions within 48 business hours.</p>
+          <p>
+            <strong>Grievance Desk:</strong> <a href="mailto:editor@swarashtra.in">editor@swarashtra.in</a>
+          </p>
+        </div>
+      </div>
+
+      <!-- Right Column: Document Outline Navigation -->
+      <aside>
+        <div class="sidebar-nav">
+          <h3>On This Page</h3>
+          <ul class="nav-links-list">
+            <li><a href="#fact-checking">1. Fact-Checking</a></li>
+            <li><a href="#sources">2. Sourcing & Attribution</a></li>
+            <li><a href="#corrections">3. Corrections Policy</a></li>
+            <li><a href="#neutrality">4. Neutral Journalism</a></li>
+            <li><a href="#ethics">5. Code of Ethics</a></li>
+            <li><a href="#sponsored">6. Sponsored Content</a></li>
+            <li><a href="#feedback">7. Reader Feedback</a></li>
+          </ul>
+        </div>
+      </aside>
+
+    </div>
+  </main>
+
+  <!-- INCLUDE FOOTER -->
+
+  <!-- INCLUDE MOBILE_NAV -->
+
+  <!-- INCLUDE SCRIPTS -->
+</body>
+</html>

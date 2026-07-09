@@ -39,8 +39,19 @@ app.use(
       directives: {
         defaultSrc: ["'self'"],
         scriptSrc: ["'self'", "'unsafe-inline'"],
-        styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"],
-        fontSrc: ["'self'", "https://fonts.gstatic.com"],
+        styleSrc: [
+          "'self'",
+          "'unsafe-inline'",
+          "https://fonts.googleapis.com",
+          "https://cdnjs.cloudflare.com"
+        ],
+
+        fontSrc: [
+          "'self'",
+          "data:",
+          "https://fonts.gstatic.com",
+          "https://cdnjs.cloudflare.com"
+        ],
         imgSrc: ["'self'", "data:", "https://*.google.com", "https://*.googleusercontent.com", "https://*.dw.com", "https://*.bbci.co.uk", "https://*.thehindu.com", "https://*.indianexpress.com", "https://*.reuters.com", "https://*.ani.in", "http://localhost:*", "https://*"],
         frameSrc: ["'self'", "https://www.youtube.com", "https://youtube.com"],
         connectSrc: ["'self'"]
@@ -137,10 +148,10 @@ async function startServer() {
   try {
     // 1. Initialize SQLite tables and seeds
     await initDatabase();
-    
+
     // 2. Start RSS Aggregator Pipeline (Updates every 15 mins)
     startAggregator(15 * 60 * 1000);
-    
+
     // 3. Listen
     app.listen(PORT, () => {
       console.log(`===================================================`);

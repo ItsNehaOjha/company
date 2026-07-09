@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- INCLUDE HEAD -->
+
+  <style>
+    .policy-hero {
+      background: linear-gradient(135deg, #001f5b 0%, #0a3c9b 100%);
+      color: #ffffff;
+      padding: 50px 0;
+      text-align: center;
+      margin-bottom: 40px;
+    }
+    .policy-hero h1 {
+      font-size: 2.2rem;
+      margin-bottom: 10px;
+      font-weight: 800;
+    }
+    .policy-hero p {
+      font-size: 1rem;
+      max-width: 600px;
+      margin: 0 auto;
+      opacity: 0.9;
+    }
+    .policy-grid {
+      display: grid;
+      grid-template-columns: 2.5fr 1fr;
+      gap: 40px;
+      margin-bottom: 60px;
+    }
+    @media (max-width: 992px) {
+      .policy-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    .policy-card {
+      background-color: var(--color-bg-card);
+      border: 1px solid var(--color-border);
+      border-radius: var(--border-radius-lg);
+      padding: 40px;
+      box-shadow: var(--shadow-sm);
+      transition: background-color var(--transition-normal), border-color var(--transition-normal);
+    }
+    .policy-card h2 {
+      font-size: 1.35rem;
+      color: var(--color-primary);
+      margin-top: 35px;
+      margin-bottom: 15px;
+      border-bottom: 1px solid var(--color-border);
+      padding-bottom: 8px;
+    }
+    .policy-card h2:first-of-type {
+      margin-top: 0;
+    }
+    [data-theme="dark"] .policy-card h2 {
+      color: #ffffff;
+    }
+    .policy-card p {
+      color: var(--color-text-muted);
+      line-height: 1.7;
+      margin-bottom: 20px;
+      font-size: 0.98rem;
+    }
+    .policy-card ul, .policy-card ol {
+      margin-left: 20px;
+      margin-bottom: 20px;
+      color: var(--color-text-muted);
+      font-size: 0.98rem;
+      line-height: 1.7;
+    }
+    .policy-card li {
+      margin-bottom: 8px;
+    }
+    .sidebar-nav {
+      background-color: var(--color-bg-card);
+      border: 1px solid var(--color-border);
+      border-radius: var(--border-radius-lg);
+      padding: 25px;
+      position: sticky;
+      top: 90px;
+      box-shadow: var(--shadow-sm);
+    }
+    .sidebar-nav h3 {
+      font-size: 1.1rem;
+      margin-bottom: 15px;
+      color: var(--color-text);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .nav-links-list {
+      list-style: none;
+      padding: 0;
+    }
+    .nav-links-list li {
+      margin-bottom: 12px;
+    }
+    .nav-links-list a {
+      color: var(--color-text-muted);
+      font-size: 0.9rem;
+      display: block;
+      transition: color var(--transition-fast);
+    }
+    .nav-links-list a:hover {
+      color: var(--color-accent);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- INCLUDE HEADER -->
+  <!-- INCLUDE NAVBAR -->
+
+  <!-- Hero Section -->
+  <section class="policy-hero">
+    <div class="container">
+      <h1 data-i18n="privacy_policy">Privacy Policy</h1>
+      <p>Swarashtra.in is committed to protecting your privacy. This policy outlines how we handle user data on our platform.</p>
+    </div>
+  </section>
+
+  <!-- Main Body Content -->
+  <main class="container">
+    <div class="policy-grid">
+      
+      <!-- Left Column: Privacy Guidelines -->
+      <div>
+        <div class="policy-card">
+          <h2 id="intro">1. Introduction</h2>
+          <p>Welcome to Swarashtra News (referred to as "Swarashtra", "we", "our", or "us"). We operate the digital news portal <a href="https://swarashtra.in">https://swarashtra.in</a>. Protecting the privacy of our readers and contributors is of paramount importance to us. This Privacy Policy describes how we collect, store, secure, and share your personal data when you interact with our website, newsletters, administrative portals, or applications.</p>
+          <p>By accessing Swarashtra, you agree to the collection and use of information in accordance with this policy. We recommend reading this document thoroughly to understand our data protection practices.</p>
+
+          <h2 id="collection">2. Information Collection</h2>
+          <p>We collect several types of information to provide and improve our services to you:</p>
+          <ul>
+            <li><strong>Personal Data:</strong> When you subscribe to our newsletter, post comments on articles, or contact our support desks, we may collect personally identifiable information such as your name, email address, phone number, and mailing address.</li>
+            <li><strong>Usage & Navigation Data:</strong> We automatically collect information about how our website is accessed and used. This includes your device's IP (Internet Protocol) address, browser type, browser version, pages visited, time and date of visits, time spent on pages, and unique device identifiers.</li>
+            <li><strong>Administrative and Mutating Logs:</strong> For administrative security, changes made in the CMS dashboard, including posts created, files uploaded, or articles updated, are logged along with session identifiers to prevent unauthorized administrative actions.</li>
+          </ul>
+
+          <h2 id="cookies">3. Cookies & Tracking</h2>
+          <p>Cookies are small files placed on your device to track site preferences and optimize experiences. Swarashtra uses cookies for the following purposes:</p>
+          <ul>
+            <li><strong>Core Configurations:</strong> Remembering local preferences such as Light or Dark theme configurations and selected languages (English or Hindi).</li>
+            <li><strong>Session Management:</strong> Storing unique administrative session keys and CSRF tokens in cookies to prevent cross-site request forgery and authenticate editors.</li>
+            <li><strong>Preference Persistence:</strong> Tracking whether you have accepted or declined newsletters, preventing repetitive subscription prompts.</li>
+          </ul>
+          <p>You can instruct your browser to refuse all cookies or to indicate when a cookie is being sent. However, if you do not accept cookies, some sections of our website (including administrative logins) may not function correctly.</p>
+
+          <h2 id="analytics">4. Analytics & Research</h2>
+          <p>To continuously improve our journalistic layouts and content selection, we utilize third-party analytics services (such as Google Analytics). These engines analyze reader behavior on an aggregated, anonymous basis. They track parameters like popular regional pages (e.g., Uttar Pradesh focus vs. Sports focus), referral channels, and reading retention rates. This data does not contain personally identifiable records and is used purely for operational optimization.</p>
+
+          <h2 id="thirdparty">5. Third-Party Services</h2>
+          <p>Swarashtra contains content embedded from third-party networks (e.g., YouTube videos, Twitter widgets, RSS aggregation pipelines). These third parties may collect details about your interaction with the embedded media in accordance with their respective privacy codes.</p>
+          <p>Additionally, we link to external websites. If you click on a third-party link, you will be directed to that site. We strongly advise you to review the Privacy Policy of every site you visit, as we have no control over and assume no responsibility for the content or privacy practices of external services.</p>
+
+          <h2 id="rights">6. User Rights</h2>
+          <p>Under local and international data protection laws, you possess specific rights regarding your personal information:</p>
+          <ol>
+            <li><strong>Right to Access:</strong> You can request a summary of the personal details we hold about you.</li>
+            <li><strong>Right to Rectification:</strong> You can request immediate corrections of inaccurate or outdated information.</li>
+            <li><strong>Right to Erasure:</strong> You can request that we delete your email from our newsletter subscription indexes.</li>
+            <li><strong>Right to Object:</strong> You can opt-out of newsletter communications at any time using the "Unsubscribe" links provided at the bottom of our emails.</li>
+          </ol>
+          <p>To exercise any of these rights, please contact our data compliance officer at the email address provided below.</p>
+
+          <h2 id="contact-info">7. Contact Information</h2>
+          <p>If you have any questions about this Privacy Policy, our data practices, or if you wish to file a complaint regarding your information security, please reach out to us:</p>
+          <p>
+            <strong>Email:</strong> <a href="mailto:info@swarashtra.in">info@swarashtra.in</a><br>
+            <strong>Address:</strong> Swarashtra Compliance Officer, Sector-2, Noida, Uttar Pradesh, India<br>
+            <strong>Phone:</strong> +91 9760271667
+          </p>
+        </div>
+      </div>
+
+      <!-- Right Column: Document Outline Navigation -->
+      <aside>
+        <div class="sidebar-nav">
+          <h3>On This Page</h3>
+          <ul class="nav-links-list">
+            <li><a href="#intro">1. Introduction</a></li>
+            <li><a href="#collection">2. Information Collection</a></li>
+            <li><a href="#cookies">3. Cookies & Tracking</a></li>
+            <li><a href="#analytics">4. Analytics & Research</a></li>
+            <li><a href="#thirdparty">5. Third-Party Services</a></li>
+            <li><a href="#rights">6. User Rights</a></li>
+            <li><a href="#contact-info">7. Contact Information</a></li>
+          </ul>
+        </div>
+      </aside>
+
+    </div>
+  </main>
+
+  <!-- INCLUDE FOOTER -->
+
+  <!-- INCLUDE MOBILE_NAV -->
+
+  <!-- INCLUDE SCRIPTS -->
+</body>
+</html>
